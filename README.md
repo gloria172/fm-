@@ -1,5 +1,3 @@
-# fm
-theboyz上海福利模拟器
 <!DOCTYPE html><html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -62,18 +60,7 @@ theboyz上海福利模拟器
   <option value="B">B档（480）</option>
 </select>
 
-<label>选择成员</label>
-<select id="member">
-  <option>Jacob</option>
-  <option>泳勋</option>
-  <option>贤在</option>
-  <option>柱延</option>
-  <option>Kevin</option>
-  <option>New</option>
-  <option>Q</option>
-  <option>善旴</option>
-  <option>Eric</option>
-</select>
+
 
 <button onclick="draw()">开始抽选</button>
 
@@ -82,6 +69,10 @@ theboyz上海福利模拟器
 
   </div><script>
 const members = ["Jacob","泳勋","贤在","柱延","Kevin","New","Q","善旴","Eric"];
+
+function randomMember() {
+  return members[Math.floor(Math.random() * members.length)];
+}
 
 const config = {
   VIP: {
@@ -110,13 +101,13 @@ function chance(hit, total) {
 
 function draw() {
   const tier = document.getElementById("tier").value;
-  const member = document.getElementById("member").value;
+  const gmMember = randomMember();
   let res = "很遗憾，没有抽到福利";
 
   if (tier === "VIP") {
     const gmPerMember = config.VIP.gm / members.length;
     if (chance(gmPerMember, config.VIP.total)) {
-      res = `🎉 GM（1v1） - ${member}`;
+      res = `🎉 GM（1v1） - ${gmMember}`;
     } else if (chance(config.VIP.v10, config.VIP.total)) {
       res = "🎉 TBZ v10";
     } else {
@@ -130,7 +121,7 @@ function draw() {
   if (tier === "A") {
     const gmPerMember = config.A.gm / members.length;
     if (chance(gmPerMember, config.A.total)) {
-      res = `🎉 GM（1v1） - ${member}`;
+      res = `🎉 GM（1v1） - ${gmMember}`;
     } else if (chance(config.A.v10, config.A.total)) {
       res = "🎉 TBZ v10";
     } else if (chance(config.A.v20, config.A.total)) {
